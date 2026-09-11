@@ -132,3 +132,53 @@ El desarrollo de **EcoTrack AI** demostró cómo el enfoque de **Vibe Coding** p
 - **Dirección vs. Sintaxis:** En lugar de invertir horas escribiendo código repetitivo de formularios, configurando rutas de Next.js o redactando expresiones regulares complejas desde cero, el rol se desplazó hacia la **arquitectura y la dirección creativa**. La IA asumió la ejecución de la sintaxis mientras que la supervisión humana guio la lógica de negocio.
 - **Iteración Instantánea:** La corrección de errores de tipado, la estructuración modular (`lib/parser`, `lib/calculator`) y la adaptación del diseño visual ecológico se resolvieron mediante lenguaje natural y prompts de control, reduciendo drásticamente el tiempo de depuración.
 - **Despliegue Rápido:** Gracias a la co-programación asistida, el prototipo pasó de la conceptualización inicial a un entorno de producción en vivo (Vercel) de forma fluida, cumpliendo con todos los requerimientos del Capstone de manera eficiente.
+
+---
+
+## 8. Registro explícito de orquestación
+
+La IA no recibió la instrucción genérica de “hacer una app”. Se le entregó contexto, límites y criterios de aceptación, y cada bloque se revisó antes de continuar. Estos son los prompts de trabajo que resumen la orquestación:
+
+### Prompt 1 — Definición de intención
+
+> Construye un MVP llamado EcoTrack AI para pequeños negocios. La persona debe poder describir actividades cotidianas en lenguaje natural y obtener una estimación de kg CO₂e. Prioriza una experiencia simple, clara y usable en español. Antes de implementar, propón una arquitectura modular y enumera los supuestos que deberán mostrarse al usuario.
+
+**Decisión humana:** mantener el alcance pequeño: electricidad, combustibles y transporte. No incluir cuentas, base de datos ni APIs externas en esta primera versión.
+
+### Prompt 2 — Contrato técnico
+
+> Implementa el parser como una función pura y determinista en TypeScript. Separa extracción, factores de emisión y cálculo. Devuelve estados para entrada vacía, texto no reconocido y resultado válido. Mantén los factores en constantes y evita `any`.
+
+**Resultado esperado:** `parseActivities` devuelve actividades tipadas y `calculateFootprint` convierte cada actividad en un desglose auditable.
+
+### Prompt 3 — Orquestación de interfaz
+
+> Crea una interfaz responsive en Next.js con un área de texto, ejemplos seleccionables, un botón de cálculo y un resultado que muestre total, actividades detectadas, factores y advertencias. Usa lenguaje comprensible para una persona no técnica y explica que el resultado es una estimación.
+
+**Decisión humana:** mostrar el factor y la unidad junto a cada resultado para que el cálculo no parezca una caja negra.
+
+### Prompt 4 — Depuración
+
+> Audita la estructura de imports y tipos del proyecto. Si aparece `Cannot find module '@/lib/calculator'`, localiza el archivo real, corrige la ruta y ejecuta lint/build. Revisa también que no haya `any` innecesario.
+
+**Resultado:** se corrigió la importación hacia `@/lib/calculator/carbon-calculator`; en la versión de entrega se reemplazó el estado `any` de la interfaz por `CalculationResult`.
+
+### Prompt 5 — Validación
+
+> Valida un caso exitoso con energía y vehículos, una entrada vacía y una frase sin cantidades reconocibles. Compara los resultados con el cálculo manual y registra las advertencias sobre distancia asumida.
+
+**Resultado de referencia:** 200 kWh producen 80 kg CO₂e; 5 camionetas con 60 km diarios asumidos producen 75 kg CO₂e; el total esperado es 155 kg CO₂e.
+
+## 9. Iteración final de entrega
+
+La entrega se reforzó después de la retroalimentación recibida:
+
+- se dejaron las instrucciones de ejecución centradas en la carpeta local del proyecto;
+- se normalizó el nombre de la bitácora a `BITACORA.md`;
+- se agregó un comando `npm run verify` para ejecutar lint y build;
+- se eliminó el estado `any` de la pantalla principal;
+- se agregaron ejemplos interactivos y un desglose visible por actividad;
+- se añadieron `VIBE_REPORT.md`, `docs/ENTREGA.md`, `docs/PRUEBAS.md` y `docs/PROMPTS.md`;
+- se documentaron las limitaciones de los factores estáticos y del parser local.
+
+El objetivo de esta iteración no fue aparentar que el MVP es un sistema de medición certificado, sino hacer verificables sus decisiones, supuestos y límites.

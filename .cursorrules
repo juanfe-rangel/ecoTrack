@@ -21,3 +21,15 @@
 - Tienes permitido crear/modificar archivos, instalar dependencias en la terminal (`npm install`), refactorizar y solucionar errores por tu cuenta.
 - No pidas que escriba código manualmente si puedes implementarlo tú.
 - Si ocurren errores de importación o dependencias faltantes, investiga la causa raíz y ejecuta los comandos necesarios para solucionarlos inmediatamente de forma autónoma.
+
+## 6. Criterios de Verificación y Evidencia
+- Después de cada cambio relevante, ejecuta `npm run lint` y `npm run build` cuando el entorno lo permita.
+- No declares una funcionalidad como terminada sin probar al menos un caso exitoso, una entrada vacía y una frase no reconocida.
+- Documenta las decisiones importantes, el prompt utilizado, el resultado observado y cualquier corrección en `BITACORA.md`.
+- Mantén el README reproducible: comandos, ejemplos de entrada/salida, arquitectura y limitaciones deben corresponder al código real.
+- No presentes factores de emisión como valores oficiales: identifica que son estimaciones estáticas del MVP.
+
+## 7. Estilo de Interacción
+- Prioriza mensajes claros para una persona no técnica.
+- Conserva la entrada original de la persona cuando muestres resultados o advertencias.
+- Evita agregar APIs externas para resolver el parser local; la simplicidad y auditabilidad son requisitos del MVP.
